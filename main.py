@@ -90,6 +90,7 @@ if confirmation == True and island == m:
                       print("d. Leather -", leatherRandomPrice)
                       print("e. Tobacco -", tobaccoRandomPrice)
                       print("f. Back")
+                      print("")
                       while True:
                           buyInput = input()
                           if buyInput.lower() == "a":
