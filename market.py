@@ -1,154 +1,236 @@
-import main
-import random
-class market:
-  def marketx():
-    fishRandomPrice = random.randint(6, 13)
-    meatRandomPrice = random.randint(7, 14)
-    rumRandomPrice = random.randint(12, 20)
-    tobaccoRandomPrice = random.randint(18, 23)
-    leatherRandomPrice = random.randint(16, 25)
-    print("Market")
-    print("a. Buy")
+import variables
+from island import island
+
+def marketx():
+  buy = 'a'
+  print("\n█▀▄▀█ ▄▀█ █▀█ █▄▀ █▀▀ ▀█▀\n█░▀░█ █▀█ █▀▄ █░█ ██▄ ░█░\n")
+  print("Fish    -", variables.fishMarketPrice, "gold")
+  print("Meat    -", variables.meatMarketPrice, "gold")
+  print("Rum     -", variables.rumMarketPrice, "gold")
+  print("Leather -", variables.leatherMarketPrice, "gold")
+  print("Tobacco -", variables.tobaccoMarketPrice, "gold")
+  print("▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄")
+  while buy == 'a':
+    print("\na. Buy")
     print("b. Sell")
     print("c. Back")
-    marketInput = input()
-    if marketInput.lower() == "a":
-        print("a. Fish -", fishRandomPrice)
-        print("b. Meat -", meatRandomPrice)
-        print("c. Rum -", rumRandomPrice)
-        print("d. Leather -", leatherRandomPrice)
-        print("e. Tobacco -", tobaccoRandomPrice)
+    while True:
+      marketInput = input()
+      if marketInput == "a":
+        buy_menu()
+        break
+      elif marketInput == "b":
+        sell_inventory()
+        break
+      elif marketInput == "c":
+        buy = 'b'
+        break
+      else:
+        print("Not in the Choices. Try Again!\n")
+        
+def buy_menu():
+        print("a. Buy Fish")
+        print("b. Buy Meat")
+        print("c. Buy Rum")
+        print("d. Buy Leather")
+        print("e. Buy Tobacco")
         print("f. Back")
         while True:
-            buyInput = input()
-            if buyInput.lower() == "a":
-              while True:
-                amountInput = int(input("Enter amount: "))
-                if amountInput <= storage:
-                    totalPurchase = fishRandomPrice * amountInput
-                    if totalPurchase > gold:
-                        print("Not enough money! Try again")
-                    else:
-                        gold = gold - totalPurchase
-                        print("You've just purchased", amountInput, "Fish")
-                        fishes = fishes + amountInput
-                        fishPrice = fishRandomPrice
-                        break
-                    break
-                else:
-                    print("Not enough Storage! Try again")
-                    
-            elif buyInput.lower() == "b":
-                amountInput = int(input("Enter amount: "))
-                if amountInput <= storage:
-                    totalPurchase = meatRandomPrice * amountInput
-                    if totalPurchase > gold:
-                        print("Not enough money!")
-                    else:
-                        gold = gold - totalPurchase
-                        print("You've just purchased", amountInput, "Meat")
-                        meats = meats + amountInput
-                        meatPrice = meatRandomPrice
-                        break
-                else:
-                    print("Not enough Storage!")
-  
-            elif buyInput.lower() == "c":
-                amountInput = int(input("Enter amount: "))
-                if amountInput <= storage:
-                    totalPurchase = rumRandomPrice * amountInput
-                    if totalPurchase > gold:
-                        print("Not enough money!")
-                    else:
-                        gold = gold - totalPurchase
-                        print("You've just purchased", amountInput, "Rum")
-                        rums = rums + amountInput
-                        rumPrice = rumRandomPrice
-                        break
-                else:
-                    print("Not enough Storage!")
-  
-            elif buyInput.lower() == "d":
-                amountInput = int(input("Enter amount: "))
-                if amountInput <= storage:
-                    totalPurchase = leatherRandomPrice * amountInput
-                    if totalPurchase > gold:
-                        print("Not enough money!")
-                    else:
-                        gold = gold - totalPurchase
-                        print("You've just purchased", amountInput, "Leather")
-                        leathers = leathers + amountInput
-                        leatherPrice = leatherRandomPrice
-                        break
-                else:
-                    print("Not enough Storage!")
-  
-            elif buyInput.lower() == "e":
-                amountInput = int(input("Enter amount: "))
-                if amountInput <= storage:
-                    totalPurchase = tobaccoRandomPrice * amountInput
-                    if totalPurchase > gold:
-                        print("Not enough money!")
-                    else:
-                        gold = gold - totalPurchase
-                        print("You've just purchased", amountInput, "Tobacco")
-                        tobaccos = tobaccos + amountInput
-                        tobaccoPrice = tobaccoRandomPrice
-                        break
-                else:
-                    print("Not enough Storage!")
-            elif buyInput.lower() == 'f':
-              break
-            else:
-                # basta mu loop
-                print("Not in the Choices. Try Again!\n")
-  
-    elif marketInput.lower() == "b":
-      print("Inventory: ")
-      print(fishes, "Fishes")
-      print(meats, "Meats")
-      print(rums, "Rums")
-      print(leathers, "Leathers")
-      print(tobaccos, "Tobaccos")
-      print("\na. sell")
-      print("b. back")
-      while True:
-        sellInput = input()
-        if sellInput.lower()=='a':
-          print("a. Sell", fishes, "Fishes")
-          print("b. Sell", meats, "Meats")
-          print("c. Sell", rums, "Rums")
-          print("d. Sell", leathers, "Leathers")
-          print("e. Sell", tobaccos, "Tobaccos")
-          productInput = input()
-          if productInput.lower() == "a":
-            gold = gold + (fishes * fishPrice)
-            fishes = 0
+          buyInput = input().lower()
+          if buyInput == "a":
+            buyFish()
             break
-          elif productInput.lower() == "b":
-            gold = gold + (meats * meatPrice)
-            meats = 0
+          elif buyInput == "b":
+            buyMeat()
             break
-          elif productInput.lower() == "c":
-            gold = gold + (rums * rumPrice)
-            rums = 0
+          elif buyInput == "c":
+            buyRum()
             break
-          elif productInput.lower() == "d":
-            gold = gold + (leathers * leatherPrice)
-            leathers = 0
+          elif buyInput == "d":
+            buyLeather()
             break
-          elif productInput.lower() == "e":
-            gold = gold + (tobaccos * tobaccoPrice)
-            tobaccos = 0
+          elif buyInput == "e":
+            buyTobacco()
+            break
+          elif buyInput == 'f':
             break
           else:
             print("Not in the Choices. Try Again!\n")
-        elif sellInput.lower() == 'b':
-          break
+
+def buyFish():
+  while True:
+    amountInput = int(input("Enter amount: "))
+    if amountInput <= variables.storage:    
+        totalPurchase = variables.fishMarketPrice * amountInput
+        if totalPurchase > variables.gold:
+            print("Not enough money! Try again")
         else:
-          print("Not in the Choices. Try Again!\n")
-    elif marketInput.lower() == "c":
-      print()
+            variables.gold = variables.gold - totalPurchase
+            print("You've just purchased", amountInput, "Fish")
+            variables.fishes = variables.fishes + amountInput
+            variables.fishPrice = variables.fishMarketPrice 
+            variables.storage -= amountInput
+            break
     else:
-      print("Not in the Choices. Try Again!\n")
+        print("Not enough Storage! Try again")
+      
+def buyMeat():
+  while True:
+    amountInput = int(input("Enter amount: "))
+    if amountInput <= variables.storage:
+      totalPurchase = variables.meatMarketPrice * amountInput
+      if totalPurchase > variables.gold:
+          print("Not enough money!")
+      else:
+          variables.gold = variables.gold - totalPurchase
+          print("You've just purchased", amountInput, "Meat")
+          variables.meats = variables.meats + amountInput
+          variables.meatPrice = variables.meatMarketPrice
+          variables.storage -= amountInput
+          break
+    else:
+        print("Not enough Storage!")
+
+def buyRum():
+  while True:
+    amountInput = int(input("Enter amount: "))
+    if amountInput <= variables.storage:
+        totalPurchase = variables.rumMarketPrice * amountInput
+        if totalPurchase > variables.gold:
+            print("Not enough money!")
+        else:
+            variables.gold = variables.gold - totalPurchase
+            print("You've just purchased", amountInput, "Rum")
+            variables.rums = variables.rums + amountInput
+            variables.rumPrice = variables.rumMarketPrice
+            variables.storage -= amountInput
+        break
+    else:
+        print("Not enough Storage!")
+
+def buyLeather():
+  while True:
+    amountInput = int(input("Enter amount: "))
+    if amountInput <= variables.storage:
+        totalPurchase = variables.leatherMarketPrice * amountInput
+        if totalPurchase > variables.gold:
+            print("Not enough money!")
+        else:
+            variables.gold = variables.gold - totalPurchase
+            print("You've just purchased", amountInput, "Leather")
+            variables.leathers = variables.leathers + amountInput
+            variables.leatherPrice = variables.leatherMarketPrice
+            variables.storage -= amountInput
+        break
+    else:
+        print("Not enough Storage!")
+
+def buyTobacco():
+  while True:
+    amountInput = int(input("Enter amount: "))
+    if amountInput <= variables.storage:
+        totalPurchase = variables.tobaccoMarketPrice * amountInput
+        if totalPurchase > variables.gold:
+            print("Not enough money!")
+        else:
+            variables.gold = variables.gold - totalPurchase
+            print("You've just purchased", amountInput, "Tobacco")
+            variables.tobaccos = variables.tobaccos + amountInput
+            variables.tobaccoPrice = variables.tobaccoMarketPrice
+            variables.storage -= amountInput
+        break
+    else:
+        print("Not enough Storage!")
+                      
+def inventory():
+    print("\n█ █▄░█ █░█ █▀▀ █▄░█ ▀█▀ █▀█ █▀█ █▄█\n█ █░▀█ ▀▄▀ ██▄ █░▀█ ░█░ █▄█ █▀▄ ░█░\n")
+    print(variables.fishes, "Fishes")
+    print(variables.meats, "Meats")
+    print(variables.rums, "Rums")
+    print(variables.leathers, "Leathers")
+    print(variables.tobaccos, "Tobaccos")
+    print("▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄")
+
+def sell_inventory():
+  print("a. Sell", variables.fishes, "Fishes")
+  print("b. Sell", variables.meats, "Meats")
+  print("c. Sell", variables.rums, "Rums")
+  print("d. Sell", variables.leathers, "Leathers")
+  print("e. Sell", variables.tobaccos, "Tobaccos")
+  print("f. Back")
+  while True:
+    productInput = input().lower()
+    if productInput == "a":
+      sellFish()
+      break
+    elif productInput == "b":
+      sellMeat()
+      break
+    elif productInput == "c":
+      sellRum()
+      break
+    elif productInput == "d":
+      sellLeather()
+      break
+    elif productInput == "e":
+      sellTobacco()
+      break
+    elif productInput == "f":
+      break
+    else:
+        print("Not in the Choices. Try Again!\n")
+
+def sellFish():
+  if variables.fishes > 0:
+    variables.gold = variables.gold + (variables.fishes * variables.fishPrice)
+    print("You've sold", variables.fishes, "Fishes for", variables.fishes * variables.fishPrice, "gold")
+    variables.storage += variables.fishes
+    variables.fishes = 0
+  else:
+    print("You have no Fishes to sell.")
+    
+def sellMeat():
+  if variables.meats > 0:
+    variables.gold = variables.gold + (variables.meats * variables.meatPrice)
+    print("You've sold", variables.meats, "Meats for", variables.meats * variables.meatPrice, "gold")
+    variables.storage += variables.meats
+    variables.meats = 0
+  else:
+    print("You have no Meats to sell.")
+    
+def sellRum():
+  if variables.rums > 0:
+    variables.gold = variables.gold + (variables.rums * variables.rumPrice)
+    print("You've sold", variables.rums, "Rums for", variables.rums * variables.rumPrice, "gold")
+    variables.storage += variables.rums
+    variables.rums = 0
+  else:
+    print("You have no Rums to sell.")
   
+def sellLeather():
+  if variables.leathers > 0:
+    variables.gold = variables.gold + (variables.leathers * variables.leatherPrice)
+    print("You've sold", variables.leathers, "Leathers for", variables.leathers * variables.leatherPrice, "gold")
+    variables.storage += variables.leathers
+    variables.leathers = 0
+  else:
+    print("You have no Leathers to sell.")
+  
+def sellTobacco():
+  if variables.tobaccos > 0:
+    variables.gold = variables.gold + (variables.tobaccos * variables.tobaccoPrice)
+    print("You've sold", variables.tobaccos, "Tobaccos for", variables.tobaccos * variables.tobaccoPrice, "gold")
+    variables.storage += variables.tobaccos
+    variables.tobaccos = 0  
+  else:
+    print("You have no Tobaccos to sell.")
+  
+
+
+
+
+
+
+
+
+
